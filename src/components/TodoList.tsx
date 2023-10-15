@@ -1,7 +1,7 @@
 import * as React from 'react';
 import List from '@mui/material/List';
 import TodoItem from './TodoItem';
-import { Divider, TextField } from '@mui/material';
+import { Button, Divider, Grid, TextField } from '@mui/material';
 
 const todoList: {
   id: number
@@ -22,6 +22,7 @@ const todoList: {
 
 export default function TodoList() {
   const [todos, setTodos] = React.useState(todoList);
+  const [inputValue, setInputValue] = React.useState('');
 
   const handleToggle = (id: number) => () => {
     setTodos(todos.map(r => {
@@ -35,8 +36,15 @@ export default function TodoList() {
     }));
   };
 
-  const handleAdd = (text: string) => () => {
-    // setTodos(todos.filter(r => r.id !== id));
+  const handleAdd = () => {
+    if (inputValue.trim()) {
+      setTodos([...todos, {
+        id: Date.now(),
+        content: inputValue,
+        isDone: false,
+      }]);
+      setInputValue('');
+    }
   }
 
   const handleDelete = (id: number) => () => {
@@ -55,6 +63,12 @@ export default function TodoList() {
     }));
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleAdd();
+    }
+  }
+
   return (
     <List sx={{
       width: '100%',
@@ -65,14 +79,26 @@ export default function TodoList() {
       padding: 2,
       boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)'
     }}>
-      <TextField
-        fullWidth
-        label=""
-        id="todoInput"
-        placeholder='Add your todo.'
-        sx={{ marginY: 1 }}
-        inputProps={{ autoComplete: 'off' }}
-      />
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={8}>
+          <TextField
+            fullWidth
+            label=""
+            id="todoInput"
+            placeholder='Add your todo.'
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            sx={{ marginY: 1 }}
+            inputProps={{ autoComplete: 'off' }}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Button onClick={handleAdd} variant="contained" color="primary" fullWidth>
+            Add
+          </Button>
+        </Grid>
+      </Grid>
       <Divider sx={{ marginY: 2 }} />
       {todos.map(todo => (
         <TodoItem
