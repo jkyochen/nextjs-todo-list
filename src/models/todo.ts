@@ -21,12 +21,12 @@ TodoSchema.set('toJSON', {
 
 const Todo = mongoose.models.Todo || mongoose.model<ITodo>('Todo', TodoSchema);
 
-export const createTodo = async (content: string): Promise<string> => {
+export const createTodo = async (content: string): Promise<Todo> => {
     const todo = new Todo({
         content,
     });
     const result = await todo.save();
-    return result.id;
+    return formatTodo(result);
 }
 
 export const getTodo = async (id: string): Promise<ITodo | null> => {
@@ -38,11 +38,7 @@ export const queryTodo = async (): Promise<Todo[]> => {
     await connectDB();
     const result = await Todo.find();
     return result.map(r => r.toJSON()).map(r => {
-        return {
-            id: r.id,
-            content: r.content,
-            isDone: r.isDone,
-        };
+        return formatTodo(r);
     });
 }
 
@@ -54,4 +50,12 @@ export const updateTodo = async (id: string, content: string, isDone: boolean): 
 export const deleteTodo = async (id: string): Promise<string> => {
     await Todo.findByIdAndDelete(id);
     return id;
+}
+
+function formatTodo(todo: ITodo) {
+    return {
+        id: todo.id,
+        content: todo.content,
+        isDone: todo.isDone,
+    }
 }

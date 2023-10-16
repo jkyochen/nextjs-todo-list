@@ -9,8 +9,8 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const { content } = await req.json();
-  const todoId = await createTodo(content);
+  const result = await createTodo(content);
   return Response.json({
-    data: todoId,
+    data: result,
   });
 }

@@ -10,12 +10,6 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
   const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
 
-  const fetchTodos = async () => {
-    const resp = await fetch("/api/todo");
-    const { data } = await resp.json();
-    setTempTodos(data);
-  };
-
   const handleAdd = async () => {
     if (inputValue.trim()) {
       const response = await fetch('/api/todo', {
@@ -28,7 +22,8 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         }),
       });
       if (response.ok) {
-        fetchTodos();
+        const res = await response.json();
+        setTempTodos(prevTodos => [...prevTodos, res.data]);
         setInputValue('');
       }
     }
@@ -48,7 +43,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
       });
 
       if (response.ok) {
-        fetchTodos();
+        setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
       }
     }
   };
@@ -67,7 +62,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
       });
 
       if (response.ok) {
-        fetchTodos();
+        setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
       }
     }
   }
@@ -78,7 +73,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
     });
 
     if (response.ok) {
-      fetchTodos();
+      setTempTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
     }
   }
 
