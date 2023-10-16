@@ -36,32 +36,46 @@ export default function TodoList() {
     }
   }
 
-  const handleToggle = (id: string) => () => {
-    setTodos(todos.map(r => {
-      if (r.id !== id) {
-        return r;
+  const handleToggle = (id: string) => async () => {
+    const updatedTodo = todos.find(todo => todo.id === id);
+    if (updatedTodo) {
+      updatedTodo.isDone = !updatedTodo.isDone;
+
+      const response = await fetch(`/api/todo/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTodo),
+      });
+
+      if (response.ok) {
+        fetchTodos();
       }
-      return {
-        ...r,
-        isDone: !r.isDone,
-      }
-    }));
+    }
   };
+
+  const handleEdit = (id: string) => async (e: any) => {
+    const updatedTodo = todos.find(todo => todo.id === id);
+    if (updatedTodo) {
+      updatedTodo.content = e.target.value;
+
+      const response = await fetch(`/api/todo/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTodo),
+      });
+
+      if (response.ok) {
+        fetchTodos();
+      }
+    }
+  }
 
   const handleDelete = (id: string) => () => {
     setTodos(todos.filter(r => r.id !== id));
-  }
-
-  const handleEdit = (id: string) => (e: any) => {
-    setTodos(todos.map(r => {
-      if (r.id !== id) {
-        return r;
-      }
-      return {
-        ...r,
-        content: e.target.value,
-      }
-    }));
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
