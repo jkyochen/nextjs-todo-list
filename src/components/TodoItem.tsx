@@ -10,6 +10,7 @@ import styles from '@/styles/TodoItem.module.css';
 import { TextField } from '@mui/material';
 import useOnClickOutside from 'use-onclickoutside';
 import { Todo } from '@/types/todo';
+import clsx from 'clsx';
 
 interface TodoItemProps {
     todo: Todo;
@@ -56,9 +57,20 @@ export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit 
                         inputProps={{ 'aria-labelledby': labelId }}
                     />
                 </ListItemIcon>
-                {editing && <TextField id="standard-basic" label="" variant="standard" fullWidth autoFocus ref={ref} value={todo.content} onChange={handleEdit(todo.id)} onKeyDown={handleEnter} autoComplete="off" />}
-                {!editing && todo.isDone && <ListItemText id={labelId} primary={todo.content} className={styles.done} />}
-                {!editing && !todo.isDone && <ListItemText id={labelId} primary={todo.content} />}
+                {editing && <TextField
+                    id="standard-basic"
+                    label=""
+                    variant="standard"
+                    fullWidth
+                    autoFocus
+                    ref={ref}
+                    value={todo.content}
+                    onChange={handleEdit(todo.id)}
+                    onKeyDown={handleEnter}
+                    autoComplete="off" />}
+                {!editing && <ListItemText id={labelId} primary={todo.content} className={clsx({
+                    [styles.done]: todo.isDone,
+                })} />}
             </ListItemButton>
         </ListItem >
     );
