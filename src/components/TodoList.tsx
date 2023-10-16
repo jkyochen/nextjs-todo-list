@@ -5,8 +5,36 @@ import { Button, Divider, Grid, TextField } from '@mui/material';
 import { Todo } from '@/types/todo';
 
 export default function TodoList() {
-  const [todos, setTodos] = React.useState([] as Todo[]);
+  const [todos, setTodos] = React.useState<Todo[]>([]);
   const [inputValue, setInputValue] = React.useState('');
+
+  const fetchTodos = async () => {
+    const resp = await fetch("/api/todo");
+    const { data } = await resp.json();
+    setTodos(data);
+  };
+
+  React.useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  const handleAdd = async () => {
+    if (inputValue.trim()) {
+      const response = await fetch('/api/todo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: inputValue,
+        }),
+      });
+      if (response.ok) {
+        fetchTodos();
+        setInputValue('');
+      }
+    }
+  }
 
   const handleToggle = (id: string) => () => {
     setTodos(todos.map(r => {
@@ -19,17 +47,6 @@ export default function TodoList() {
       }
     }));
   };
-
-  const handleAdd = () => {
-    if (inputValue.trim()) {
-      setTodos([...todos, {
-        id: Date.now().toString(),
-        content: inputValue,
-        isDone: false,
-      }]);
-      setInputValue('');
-    }
-  }
 
   const handleDelete = (id: string) => () => {
     setTodos(todos.filter(r => r.id !== id));
