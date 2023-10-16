@@ -74,8 +74,14 @@ export default function TodoList() {
     }
   }
 
-  const handleDelete = (id: string) => () => {
-    setTodos(todos.filter(r => r.id !== id));
+  const handleDelete = (id: string) => async () => {
+    const response = await fetch(`/api/todo/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      fetchTodos();
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
