@@ -1,22 +1,20 @@
+"use client";
+
 import * as React from 'react';
 import List from '@mui/material/List';
 import TodoItem from './TodoItem';
 import { Button, Divider, Grid, TextField } from '@mui/material';
 import { Todo } from '@/types/todo';
 
-export default function TodoList() {
-  const [todos, setTodos] = React.useState<Todo[]>([]);
+export default function TodoList({ todos }: { todos: Todo[] }) {
+  const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
 
   const fetchTodos = async () => {
     const resp = await fetch("/api/todo");
     const { data } = await resp.json();
-    setTodos(data);
+    setTempTodos(data);
   };
-
-  React.useEffect(() => {
-    fetchTodos();
-  }, []);
 
   const handleAdd = async () => {
     if (inputValue.trim()) {
@@ -37,7 +35,7 @@ export default function TodoList() {
   }
 
   const handleToggle = (id: string) => async () => {
-    const updatedTodo = todos.find(todo => todo.id === id);
+    const updatedTodo = tempTodos.find(todo => todo.id === id);
     if (updatedTodo) {
       updatedTodo.isDone = !updatedTodo.isDone;
 
@@ -56,7 +54,7 @@ export default function TodoList() {
   };
 
   const handleEdit = (id: string) => async (content: string) => {
-    const updatedTodo = todos.find(todo => todo.id === id);
+    const updatedTodo = tempTodos.find(todo => todo.id === id);
     if (updatedTodo) {
       updatedTodo.content = content;
 
@@ -121,7 +119,7 @@ export default function TodoList() {
         </Grid>
       </Grid>
       <Divider sx={{ marginY: 2 }} />
-      {todos.map(todo => (
+      {tempTodos.map(todo => (
         <TodoItem
           key={todo.id}
           todo={todo}

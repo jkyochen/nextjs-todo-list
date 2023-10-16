@@ -1,11 +1,10 @@
-"use client";
-
 import TodoList from '@/components/TodoList';
 import Layout from '@/components/Layout'
-import styles from './page.module.css'
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
+import { queryTodo } from '@/models/todo';
 
-export default function Home() {
+export default async function Home() {
+  const todos = await queryTodo();
   return <Layout>
     <Container maxWidth="sm" sx={{
       marginY: 5,
@@ -13,10 +12,8 @@ export default function Home() {
       flexDirection: "column",
       justifyContent: "center",
     }}>
-      <Typography variant="h1" component="h4" marginBottom={2}>
-        To-do List
-      </Typography>
-      <TodoList />
+      <h1>To-do List</h1>
+      <TodoList todos={todos} />
     </Container>
   </Layout >
 }
