@@ -16,11 +16,12 @@ interface TodoItemProps {
     todo: Todo;
     handleDelete: (id: string) => () => void;
     handleToggle: (id: string) => () => void;
-    handleEdit: (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleEdit: (id: string) => (content: string) => void;
 }
 
 export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit }: TodoItemProps) {
     const [editing, setEditing] = React.useState(false);
+    const [tempContent, setTempContent] = React.useState(todo.content);
     const labelId = `checkbox-list-label-${todo.id}`;
     const ref = React.useRef(null);
     useOnClickOutside(ref, () => finishEdit());
@@ -34,6 +35,7 @@ export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit 
 
     const finishEdit = () => {
         setEditing(false);
+        handleEdit(todo.id)(tempContent);
         (document.activeElement as HTMLElement)?.blur();
     }
 
@@ -64,9 +66,10 @@ export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit 
                     fullWidth
                     autoFocus
                     ref={ref}
-                    value={todo.content}
-                    onChange={handleEdit(todo.id)}
+                    value={tempContent}
+                    onChange={(e) => setTempContent(e.target.value)}
                     onKeyDown={handleEnter}
+                    onBlur={() => finishEdit()}
                     autoComplete="off" />}
                 {!editing && <ListItemText id={labelId} primary={todo.content} className={clsx({
                     [styles.done]: todo.isDone,

@@ -55,10 +55,10 @@ export default function TodoList() {
     }
   };
 
-  const handleEdit = (id: string) => async (e: any) => {
+  const handleEdit = (id: string) => async (content: string) => {
     const updatedTodo = todos.find(todo => todo.id === id);
     if (updatedTodo) {
-      updatedTodo.content = e.target.value;
+      updatedTodo.content = content;
 
       const response = await fetch(`/api/todo/${id}`, {
         method: 'PUT',
