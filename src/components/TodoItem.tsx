@@ -9,18 +9,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styles from '@/styles/TodoItem.module.css';
 import { TextField } from '@mui/material';
 import useOnClickOutside from 'use-onclickoutside';
-
-interface TodoType {
-    id: number;
-    content: string;
-    isDone: boolean;
-}
+import { Todo } from '@/types/todo';
 
 interface TodoItemProps {
-    todo: TodoType;
-    handleDelete: (id: number) => () => void;
-    handleToggle: (id: number) => () => void;
-    handleEdit: (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+    todo: Todo;
+    handleDelete: (id: string) => () => void;
+    handleToggle: (id: string) => () => void;
+    handleEdit: (id: string) => (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit }: TodoItemProps) {

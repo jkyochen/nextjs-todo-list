@@ -2,29 +2,13 @@ import * as React from 'react';
 import List from '@mui/material/List';
 import TodoItem from './TodoItem';
 import { Button, Divider, Grid, TextField } from '@mui/material';
-
-const todoList: {
-  id: number
-  content: string
-  isDone: boolean
-}[] = [
-    {
-      id: 1,
-      content: "example1",
-      isDone: false,
-    },
-    {
-      id: 2,
-      content: "example2",
-      isDone: true,
-    },
-  ];
+import { Todo } from '@/types/todo';
 
 export default function TodoList() {
-  const [todos, setTodos] = React.useState(todoList);
+  const [todos, setTodos] = React.useState([] as Todo[]);
   const [inputValue, setInputValue] = React.useState('');
 
-  const handleToggle = (id: number) => () => {
+  const handleToggle = (id: string) => () => {
     setTodos(todos.map(r => {
       if (r.id !== id) {
         return r;
@@ -39,7 +23,7 @@ export default function TodoList() {
   const handleAdd = () => {
     if (inputValue.trim()) {
       setTodos([...todos, {
-        id: Date.now(),
+        id: Date.now().toString(),
         content: inputValue,
         isDone: false,
       }]);
@@ -47,11 +31,11 @@ export default function TodoList() {
     }
   }
 
-  const handleDelete = (id: number) => () => {
+  const handleDelete = (id: string) => () => {
     setTodos(todos.filter(r => r.id !== id));
   }
 
-  const handleEdit = (id: number) => (e: any) => {
+  const handleEdit = (id: string) => (e: any) => {
     setTodos(todos.map(r => {
       if (r.id !== id) {
         return r;
