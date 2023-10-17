@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
