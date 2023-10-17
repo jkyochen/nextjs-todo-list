@@ -6,6 +6,7 @@ export const connectDB = async (): Promise<void> => {
     try {
         await mongoose.connect(MONGODB_URI);
     } catch (error) {
+        console.error("error", error);
         process.exit(1);
     }
 };
