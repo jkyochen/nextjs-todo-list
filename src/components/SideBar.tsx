@@ -8,11 +8,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import TodayIcon from '@mui/icons-material/Today';
 import SideBarButton from './SideBarButton';
 import DrawerHeader from './DrawerHeader';
-
-const drawerWidth = 240;
+import { DRAWER_WIDTH } from '@/constants';
 
 const openedMixin = (theme: Theme): CSSObject => ({
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -34,7 +33,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
