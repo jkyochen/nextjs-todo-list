@@ -2,13 +2,15 @@
 
 import * as React from 'react';
 import List from '@mui/material/List';
-import TodoItem from './TodoItem';
 import { Button, Divider, Grid, TextField } from '@mui/material';
+import TodoItem from './TodoItem';
 import { Todo } from '@/validators/todo';
+import { useSnackbar } from './SnackBar';
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
   const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
+  const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar();
 
   const handleAdd = async () => {
     if (inputValue.trim()) {
@@ -21,11 +23,14 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
           content: inputValue,
         }),
       });
-      if (response.ok) {
-        const res = await response.json();
-        setTempTodos(prevTodos => [...prevTodos, res.data]);
-        setInputValue('');
+      if (!response.ok) {
+        openErrorSnackbar("Create error");
+        return;
       }
+      const res = await response.json();
+      setTempTodos(prevTodos => [...prevTodos, res.data]);
+      setInputValue('');
+      openSuccessSnackbar("Create success");
     }
   }
 
@@ -41,10 +46,12 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         },
         body: JSON.stringify(updatedTodo),
       });
-
-      if (response.ok) {
-        setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
+      if (!response.ok) {
+        openErrorSnackbar("Toggle error");
+        return;
       }
+      setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
+      openSuccessSnackbar("Toggle success");
     }
   };
 
@@ -60,10 +67,12 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         },
         body: JSON.stringify(updatedTodo),
       });
-
-      if (response.ok) {
-        setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
+      if (!response.ok) {
+        openErrorSnackbar("Edit error");
+        return;
       }
+      setTempTodos(prevTodos => prevTodos.map(todo => todo.id === id ? updatedTodo : todo));
+      openSuccessSnackbar("Edit success");
     }
   }
 
@@ -71,10 +80,12 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
     const response = await fetch(`/api/todo/${id}`, {
       method: 'DELETE',
     });
-
-    if (response.ok) {
-      setTempTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    if (!response.ok) {
+      openErrorSnackbar("Delete error");
+      return;
     }
+    setTempTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    openSuccessSnackbar("Delete success");
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
