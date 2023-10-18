@@ -11,6 +11,9 @@ import TodayIcon from '@mui/icons-material/Today';
 import SideBarButton from './SideBarButton';
 import DrawerHeader from './DrawerHeader';
 import { DRAWER_WIDTH } from '@/constants';
+import FolderIcon from '@mui/icons-material/Folder';
+import { Box, Button } from '@mui/material';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -68,5 +71,19 @@ export default function SideBar({ open, handleDrawerClose }: SideBarProp) {
                 <TodayIcon />
             </SideBarButton>
         </List>
-    </Drawer>
+        <Divider />
+        <List>
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 3 }}>
+                {open && <Button variant="contained">
+                    Create Folder
+                </Button>}
+                {!open && <CreateNewFolderIcon />}
+            </Box>
+            {Array.from({ length: 5 }).map((_, i) => {
+                return <SideBarButton text={"Folder" + i} open={open} key={i} >
+                    <FolderIcon />
+                </SideBarButton>
+            })}
+        </List>
+    </Drawer >
 }
