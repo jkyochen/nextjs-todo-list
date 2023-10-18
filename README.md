@@ -2,10 +2,10 @@
 
 ## Technology Stack / 技術スタック
 
-+ Next.js 13 (App Router)
++ [Next.js 13](https://nextjs.org/docs/app/building-your-application) (App Router)
 + TypeScript
-+ Material UI
-+ MongoDB
++ [Material UI](https://mui.com/material-ui/)
++ MongoDB ([Mongoose](https://mongoosejs.com/))
 
 ## Quick Start(Dev)
 
