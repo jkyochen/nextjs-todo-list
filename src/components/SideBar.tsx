@@ -12,8 +12,9 @@ import SideBarButton from './SideBarButton';
 import DrawerHeader from './DrawerHeader';
 import { DRAWER_WIDTH } from '@/constants';
 import FolderIcon from '@mui/icons-material/Folder';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import CreateFolderDialog from './CreateFolderDialog';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -74,9 +75,7 @@ export default function SideBar({ open, handleDrawerClose }: SideBarProp) {
         <Divider />
         <List>
             <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 3 }}>
-                {open && <Button variant="contained">
-                    Create Folder
-                </Button>}
+                {open && <CreateFolderDialog />}
                 {!open && <CreateNewFolderIcon />}
             </Box>
             {Array.from({ length: 5 }).map((_, i) => {
