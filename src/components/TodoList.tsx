@@ -4,7 +4,7 @@ import * as React from 'react';
 import List from '@mui/material/List';
 import TodoItem from './TodoItem';
 import { Button, Divider, Grid, TextField } from '@mui/material';
-import { Todo } from '@/types/todo';
+import { Todo } from '@/validators/todo';
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
   const [tempTodos, setTempTodos] = React.useState(todos);

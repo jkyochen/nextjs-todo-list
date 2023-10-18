@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styles from '@/styles/TodoItem.module.css';
 import { TextField } from '@mui/material';
 import useOnClickOutside from 'use-onclickoutside';
-import { Todo } from '@/types/todo';
+import { Todo } from '@/validators/todo';
 import clsx from 'clsx';
 
 interface TodoItemProps {

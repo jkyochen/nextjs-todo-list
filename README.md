@@ -5,6 +5,7 @@
 + [Next.js 13](https://nextjs.org/docs/app/building-your-application) (App Router)
 + TypeScript
 + [Material UI](https://mui.com/material-ui/)
++ [Zod](https://zod.dev/) for validation
 + MongoDB ([Mongoose](https://mongoosejs.com/))
 
 ## Quick Start(Dev)

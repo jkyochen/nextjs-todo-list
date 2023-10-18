@@ -1,5 +1,5 @@
 import { connectDB } from '@/db/mongodb';
-import { Todo } from '@/types/todo';
+import { Todo } from '@/validators/todo';
 import mongoose, { Document, Schema } from 'mongoose';
 
 interface ITodo extends Document {
@@ -30,10 +30,13 @@ export const createTodo = async (content: string): Promise<Todo> => {
     return formatTodo(result);
 }
 
-export const getTodo = async (id: string): Promise<ITodo | null> => {
+export const getTodo = async (id: string): Promise<Todo | null> => {
     await connectDB();
     const todo = await Todo.findOne({ _id: id });
-    return todo ? todo.toJSON() as ITodo : null;
+    if (!todo) {
+        return null;
+    }
+    return formatTodo(todo.toJSON());
 }
 
 export const queryTodo = async (): Promise<Todo[]> => {
@@ -44,10 +47,13 @@ export const queryTodo = async (): Promise<Todo[]> => {
     });
 }
 
-export const updateTodo = async (id: string, content: string, isDone: boolean): Promise<string> => {
+export const updateTodo = async (todo: Todo): Promise<string> => {
     await connectDB();
-    await Todo.findByIdAndUpdate(id, { content, isDone });
-    return id;
+    await Todo.findByIdAndUpdate(todo.id, {
+        content: todo.content,
+        isDone: todo.isDone,
+    });
+    return todo.id;
 }
 
 export const deleteTodo = async (id: string): Promise<string> => {
@@ -56,7 +62,7 @@ export const deleteTodo = async (id: string): Promise<string> => {
     return id;
 }
 
-function formatTodo(todo: ITodo) {
+function formatTodo(todo: ITodo): Todo {
     return {
         id: todo.id,
         content: todo.content,
