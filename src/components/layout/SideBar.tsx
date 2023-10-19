@@ -8,13 +8,13 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import TodayIcon from '@mui/icons-material/Today';
-import SideBarButton from './SideBarButton';
-import DrawerHeader from './DrawerHeader';
+import SideBarButton from '../button/SideBarButton';
+import SpaceHeader from './SpaceHeader';
 import { DRAWER_WIDTH } from '@/constants';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Box } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import CreateFolderDialog from './CreateFolderDialog';
+import CreateFolderDialog from '../dialog/CreateFolderDialog';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -61,11 +61,11 @@ interface SideBarProp {
 
 export default function SideBar({ open, handleDrawerClose }: SideBarProp) {
     return <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+        <SpaceHeader>
             <IconButton onClick={handleDrawerClose}>
                 <ChevronLeftIcon />
             </IconButton>
-        </DrawerHeader>
+        </SpaceHeader>
         <Divider />
         <List>
             <SideBarButton text={"Default"} open={open} >

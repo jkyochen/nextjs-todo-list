@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './Header';
 import SideBar from './SideBar';
-import DrawerHeader from './DrawerHeader';
-import { SnackbarProvider } from './SnackBar';
+import SpaceHeader from './SpaceHeader';
+import { SnackbarProvider } from '../toast/SnackBar';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(true);
@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
       <SideBar open={open} handleDrawerClose={handleDrawerClose} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        <SpaceHeader />
         <SnackbarProvider>
           {children}
         </SnackbarProvider>

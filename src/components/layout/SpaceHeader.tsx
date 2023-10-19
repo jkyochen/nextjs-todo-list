@@ -3,7 +3,7 @@
 import { styled } from '@mui/material/styles';
 import React from "react";
 
-const InnerDrawerHeader = styled('div')(({ theme }) => ({
+const InnerSpaceHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -11,12 +11,12 @@ const InnerDrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-interface DrawerHeaderProp {
+interface SpaceHeaderProp {
     children?: React.ReactNode
 }
 
-export default function DrawerHeader({ children }: DrawerHeaderProp) {
-    return <InnerDrawerHeader>
+export default function SpaceHeader({ children }: SpaceHeaderProp) {
+    return <InnerSpaceHeader>
         {children}
-    </InnerDrawerHeader>
+    </InnerSpaceHeader>
 }

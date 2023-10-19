@@ -1,5 +1,5 @@
 import TodoList from '@/components/TodoList';
-import Layout from '@/components/Layout'
+import Layout from '@/components/layout/Layout'
 import { Container } from '@mui/material';
 import { queryTodo } from '@/models/todo';
 

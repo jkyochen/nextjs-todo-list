@@ -4,8 +4,8 @@ import * as React from 'react';
 import { Box, Divider, Grid, TextField } from '@mui/material';
 import TodoItem from './TodoItem';
 import { Todo } from '@/validators/todo';
-import { useSnackbar } from './SnackBar';
-import ProgressButton from './ProgressButton';
+import { useSnackbar } from './toast/SnackBar';
+import ProgressButton from './button/ProgressButton';
 import { useLoadingState } from '@/hooks/useLoadingState';
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
