@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styles from '@/styles/TodoItem.module.css';
 import { TextField } from '@mui/material';
-import useOnClickOutside from 'use-onclickoutside';
 import { Todo } from '@/validators/todo';
 import clsx from 'clsx';
 
@@ -25,8 +24,6 @@ export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit 
     const [editing, setEditing] = React.useState(false);
     const [tempContent, setTempContent] = React.useState(todo.content);
     const labelId = `checkbox-list-label-${todo.id}`;
-    const ref = React.useRef(null);
-    useOnClickOutside(ref, () => finishEdit());
 
     const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -67,7 +64,6 @@ export default function TodoItem({ todo, handleDelete, handleToggle, handleEdit 
                     variant="standard"
                     fullWidth
                     autoFocus
-                    ref={ref}
                     value={tempContent}
                     onChange={(e) => setTempContent(e.target.value)}
                     onKeyDown={handleEnter}
