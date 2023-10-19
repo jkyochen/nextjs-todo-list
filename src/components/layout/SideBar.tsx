@@ -13,7 +13,6 @@ import SpaceHeader from './SpaceHeader';
 import { DRAWER_WIDTH } from '@/constants';
 import { Folder } from '@/validators/folder';
 import FolderList from '../FolderList';
-import Link from 'next/link';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
