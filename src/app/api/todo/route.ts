@@ -1,10 +1,10 @@
-import { ZodError, z } from "zod";
+import { ZodError } from "zod";
 import { createTodo, queryTodo } from '@/models/todo';
 import { revalidatePath } from 'next/cache';
 import { NextResponse } from "next/server";
-import { CreateTodo, CreateTodoSchema, Todo } from "@/validators/todo";
+import { CreateTodo, CreateTodoSchema } from "@/validators/todo";
 
-export async function GET(req: Request) {
+export async function GET() {
   const todoList = await queryTodo();
   return Response.json({
     data: todoList,
