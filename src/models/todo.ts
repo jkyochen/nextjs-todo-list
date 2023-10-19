@@ -1,15 +1,17 @@
 import { connectDB } from '@/db/mongodb';
-import { Todo } from '@/validators/todo';
+import { CreateTodo, Todo } from '@/validators/todo';
 import mongoose, { Document, Schema } from 'mongoose';
 
 interface ITodo extends Document {
     content: string;
     isDone: boolean;
+    folderId: string;
 }
 
 const TodoSchema: Schema = new Schema({
     content: { type: String, required: true },
     isDone: { type: Boolean, default: false },
+    folderId: { type: String, required: true },
 });
 
 TodoSchema.virtual('id').get(function (this: any) {
@@ -21,11 +23,9 @@ TodoSchema.set('toJSON', {
 
 const TodoModel = mongoose.models.Todo || mongoose.model<ITodo>('Todo', TodoSchema);
 
-export const createTodo = async (content: string): Promise<Todo> => {
+export const createTodo = async (newTodo: CreateTodo): Promise<Todo> => {
     await connectDB();
-    const todo = new TodoModel({
-        content,
-    });
+    const todo = new TodoModel(newTodo);
     const result = await todo.save();
     return formatTodo(result);
 }
@@ -67,5 +67,6 @@ function formatTodo(todo: ITodo): Todo {
         id: todo.id,
         content: todo.content,
         isDone: todo.isDone,
-    }
+        folderId: todo.folderId,
+    };
 }

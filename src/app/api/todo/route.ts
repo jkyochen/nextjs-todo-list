@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       status: 401
     });
   }
-  const result = await createTodo(todo.content);
+  const result = await createTodo(todo);
   revalidatePath("/");
   return Response.json({
     code: 0,

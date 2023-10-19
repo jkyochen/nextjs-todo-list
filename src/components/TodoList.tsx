@@ -7,6 +7,7 @@ import { Todo } from '@/validators/todo';
 import { useSnackbar } from './toast/SnackBar';
 import ProgressButton from './button/ProgressButton';
 import { useLoadingState } from '@/hooks/useLoadingState';
+import { DEFAULT_FOLDER } from '@/constants';
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
   const [tempTodos, setTempTodos] = React.useState(todos);
@@ -23,6 +24,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         },
         body: JSON.stringify({
           content: inputValue,
+          folderId: DEFAULT_FOLDER,
         }),
       });
       if (!response.ok) {
