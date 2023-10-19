@@ -19,10 +19,10 @@ FolderSchema.set('toJSON', {
 
 const FolderModel = mongoose.models.Folder || mongoose.model<IFolder>('Folder', FolderSchema);
 
-export const createFolder = async (content: string): Promise<Folder> => {
+export const createFolder = async (name: string): Promise<Folder> => {
     await connectDB();
     const Folder = new FolderModel({
-        content,
+        name,
     });
     const result = await Folder.save();
     return formatFolder(result);
