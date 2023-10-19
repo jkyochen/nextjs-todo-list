@@ -7,14 +7,14 @@ import { Todo } from '@/validators/todo';
 import { useSnackbar } from './toast/SnackBar';
 import ProgressButton from './button/ProgressButton';
 import { useLoadingState } from '@/hooks/useLoadingState';
-import { DEFAULT_FOLDER } from '@/constants';
 
 interface TodoListProp {
   folderId: string
+  folderName?: string
   todos: Todo[]
 }
 
-export default function TodoList({ folderId, todos }: TodoListProp) {
+export default function TodoList({ folderId, folderName, todos }: TodoListProp) {
   const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
   const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar();
@@ -105,7 +105,10 @@ export default function TodoList({ folderId, todos }: TodoListProp) {
     }
   }
 
-  return (
+  return <>
+    <h3 style={{
+      margin: "10px 0px",
+    }}>Folder Name: {folderName || folderId}</h3>
     <Box sx={{
       width: '100%',
       maxWidth: 460,
@@ -146,5 +149,5 @@ export default function TodoList({ folderId, todos }: TodoListProp) {
         />
       ))}
     </Box>
-  );
+  </>
 }
