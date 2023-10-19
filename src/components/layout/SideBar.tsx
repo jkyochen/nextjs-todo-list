@@ -60,8 +60,6 @@ interface SideBarProp {
 
 export default function SideBar({ open, folders, handleDrawerClose }: SideBarProp) {
 
-    const [tempFolders, setTempFolders] = React.useState(folders);
-
     return <Drawer variant="permanent" open={open}>
         <SpaceHeader>
             <IconButton onClick={handleDrawerClose}>
@@ -75,6 +73,6 @@ export default function SideBar({ open, folders, handleDrawerClose }: SideBarPro
             </SideBarButton>
         </List>
         <Divider />
-        <FolderList {...{ open, tempFolders, setTempFolders }} />
+        <FolderList {...{ open, folders }} />
     </Drawer >
 }

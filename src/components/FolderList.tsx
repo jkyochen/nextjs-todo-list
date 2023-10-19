@@ -11,15 +11,12 @@ import { Folder } from '@/validators/folder';
 
 interface FolderListProp {
     open: boolean
-    tempFolders: Folder[]
-    setTempFolders: React.Dispatch<React.SetStateAction<{
-        id: string;
-        name: string;
-    }[]>>
+    folders: Folder[]
 }
 
-export default function FolderList({ open, tempFolders, setTempFolders }: FolderListProp) {
+export default function FolderList({ open, folders }: FolderListProp) {
 
+    const [tempFolders, setTempFolders] = React.useState(folders);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [inputValue, setInputValue] = React.useState('');
     const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar();
