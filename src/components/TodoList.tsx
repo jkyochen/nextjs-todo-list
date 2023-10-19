@@ -2,15 +2,18 @@
 
 import * as React from 'react';
 import List from '@mui/material/List';
-import { Button, Divider, Grid, TextField } from '@mui/material';
+import { Box, Divider, Grid, TextField } from '@mui/material';
 import TodoItem from './TodoItem';
 import { Todo } from '@/validators/todo';
 import { useSnackbar } from './SnackBar';
+import ProgressButton from './ProgressButton';
+import { useLoadingState } from '@/hooks/useLoadingState';
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
   const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
   const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar();
+  const { loading, toggleLoading } = useLoadingState();
 
   const handleAdd = async () => {
     if (inputValue.trim()) {
@@ -25,6 +28,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
       });
       if (!response.ok) {
         openErrorSnackbar("Create error");
+        toggleLoading();
         return;
       }
       const res = await response.json();
@@ -32,6 +36,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
       setInputValue('');
       openSuccessSnackbar("Create success");
     }
+    toggleLoading();
   }
 
   const handleToggle = (id: string) => async () => {
@@ -119,9 +124,9 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
           />
         </Grid>
         <Grid item xs={4}>
-          <Button onClick={handleAdd} variant="contained" color="primary" fullWidth>
-            Add
-          </Button>
+          <Box onClick={handleAdd}>
+            <ProgressButton loading={loading} toggleLoading={toggleLoading} >Add</ProgressButton>
+          </Box>
         </Grid>
       </Grid>
       <Divider sx={{ marginY: 2 }} />
