@@ -8,6 +8,7 @@ import SideBar from './SideBar';
 import SpaceHeader from './SpaceHeader';
 import { SnackbarProvider } from '../toast/SnackBar';
 import { Folder } from '@/validators/folder';
+import Body from './Body';
 
 interface LayoutProp {
   folders: Folder[]
@@ -33,7 +34,9 @@ export default function Layout({ folders, children }: LayoutProp) {
         <SideBar open={open} folders={folders} handleDrawerClose={handleDrawerClose} />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <SpaceHeader />
-          {children}
+          <Body>
+            {children}
+          </Body>
         </Box>
       </SnackbarProvider>
     </Box>
