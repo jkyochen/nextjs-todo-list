@@ -12,6 +12,12 @@ export const CreateTodoSchema = TodoSchema.pick({
     folderId: true,
 });
 
+export const QueryTodoSchema = TodoSchema.pick({
+    folderId: true,
+}).partial();
+
 export type Todo = z.infer<typeof TodoSchema>;
 
 export type CreateTodo = z.infer<typeof CreateTodoSchema>;
+
+export type QueryTodo = z.infer<typeof QueryTodoSchema>;

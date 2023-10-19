@@ -61,7 +61,7 @@ export default function FolderList({ open, folders }: FolderListProp) {
             {!open && <CreateNewFolderIcon />}
         </Box>
         {tempFolders.map(r => {
-            return <SideBarButton key={r.id} text={r.name} open={open} >
+            return <SideBarButton key={r.id} text={r.name} open={open} href={`/folder/${r.id}`} >
                 <FolderIcon />
             </SideBarButton>
         })}

@@ -9,7 +9,12 @@ import ProgressButton from './button/ProgressButton';
 import { useLoadingState } from '@/hooks/useLoadingState';
 import { DEFAULT_FOLDER } from '@/constants';
 
-export default function TodoList({ todos }: { todos: Todo[] }) {
+interface TodoListProp {
+  folderId: string
+  todos: Todo[]
+}
+
+export default function TodoList({ folderId, todos }: TodoListProp) {
   const [tempTodos, setTempTodos] = React.useState(todos);
   const [inputValue, setInputValue] = React.useState('');
   const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar();
@@ -24,7 +29,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
         },
         body: JSON.stringify({
           content: inputValue,
-          folderId: DEFAULT_FOLDER,
+          folderId,
         }),
       });
       if (!response.ok) {

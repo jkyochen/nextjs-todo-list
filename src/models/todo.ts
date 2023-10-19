@@ -1,5 +1,5 @@
 import { connectDB } from '@/db/mongodb';
-import { CreateTodo, Todo } from '@/validators/todo';
+import { CreateTodo, QueryTodo, Todo } from '@/validators/todo';
 import mongoose, { Document, Schema } from 'mongoose';
 
 interface ITodo extends Document {
@@ -39,9 +39,16 @@ export const getTodo = async (id: string): Promise<Todo | null> => {
     return formatTodo(todo.toJSON());
 }
 
-export const queryTodo = async (): Promise<Todo[]> => {
+export const queryTodo = async (q?: QueryTodo): Promise<Todo[]> => {
     await connectDB();
-    const result = await TodoModel.find();
+    let result;
+    if (q?.folderId) {
+        result = await TodoModel.find({
+            folderId: q.folderId,
+        });
+    } else {
+        result = await TodoModel.find();
+    }
     return result.map(r => r.toJSON()).map(r => {
         return formatTodo(r);
     });

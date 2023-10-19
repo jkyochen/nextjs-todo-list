@@ -2,14 +2,13 @@ import TodoList from '@/components/TodoList';
 import Layout from '@/components/layout/Layout'
 import { queryTodo } from '@/models/todo';
 import { queryFolder } from '@/models/folder';
-import { DEFAULT_FOLDER } from '@/constants';
 
-export default async function Home() {
+export default async function FolderHome({ params }: { params: { id: string } }) {
   const todos = await queryTodo({
-    folderId: DEFAULT_FOLDER,
+    folderId: params.id,
   });
   const folders = await queryFolder();
   return <Layout folders={folders}>
-    <TodoList folderId={DEFAULT_FOLDER} todos={todos} />
+    <TodoList folderId={params.id} todos={todos} />
   </Layout >
 }

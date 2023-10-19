@@ -13,6 +13,7 @@ import SpaceHeader from './SpaceHeader';
 import { DRAWER_WIDTH } from '@/constants';
 import { Folder } from '@/validators/folder';
 import FolderList from '../FolderList';
+import Link from 'next/link';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -68,7 +69,7 @@ export default function SideBar({ open, folders, handleDrawerClose }: SideBarPro
         </SpaceHeader>
         <Divider />
         <List>
-            <SideBarButton text={"Default"} open={open} >
+            <SideBarButton text={"Default"} open={open} href={"/"} >
                 <TodayIcon />
             </SideBarButton>
         </List>
