@@ -19,11 +19,11 @@ TodoSchema.set('toJSON', {
     virtuals: true,
 });
 
-const Todo = mongoose.models.Todo || mongoose.model<ITodo>('Todo', TodoSchema);
+const TodoModel = mongoose.models.Todo || mongoose.model<ITodo>('Todo', TodoSchema);
 
 export const createTodo = async (content: string): Promise<Todo> => {
     await connectDB();
-    const todo = new Todo({
+    const todo = new TodoModel({
         content,
     });
     const result = await todo.save();
@@ -32,7 +32,7 @@ export const createTodo = async (content: string): Promise<Todo> => {
 
 export const getTodo = async (id: string): Promise<Todo | null> => {
     await connectDB();
-    const todo = await Todo.findOne({ _id: id });
+    const todo = await TodoModel.findOne({ _id: id });
     if (!todo) {
         return null;
     }
@@ -41,7 +41,7 @@ export const getTodo = async (id: string): Promise<Todo | null> => {
 
 export const queryTodo = async (): Promise<Todo[]> => {
     await connectDB();
-    const result = await Todo.find();
+    const result = await TodoModel.find();
     return result.map(r => r.toJSON()).map(r => {
         return formatTodo(r);
     });
@@ -49,7 +49,7 @@ export const queryTodo = async (): Promise<Todo[]> => {
 
 export const updateTodo = async (todo: Todo): Promise<string> => {
     await connectDB();
-    await Todo.findByIdAndUpdate(todo.id, {
+    await TodoModel.findByIdAndUpdate(todo.id, {
         content: todo.content,
         isDone: todo.isDone,
     });
@@ -58,7 +58,7 @@ export const updateTodo = async (todo: Todo): Promise<string> => {
 
 export const deleteTodo = async (id: string): Promise<string> => {
     await connectDB();
-    await Todo.findByIdAndDelete(id);
+    await TodoModel.findByIdAndDelete(id);
     return id;
 }
 
