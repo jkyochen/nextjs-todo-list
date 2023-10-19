@@ -15,6 +15,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { Box } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import CreateFolderDialog from '../dialog/CreateFolderDialog';
+import { Folder } from '@/validators/folder';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -56,10 +57,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 interface SideBarProp {
     open: boolean
+    folders: Folder[]
     handleDrawerClose: () => void
 }
 
-export default function SideBar({ open, handleDrawerClose }: SideBarProp) {
+export default function SideBar({ open, folders, handleDrawerClose }: SideBarProp) {
     return <Drawer variant="permanent" open={open}>
         <SpaceHeader>
             <IconButton onClick={handleDrawerClose}>
@@ -78,8 +80,8 @@ export default function SideBar({ open, handleDrawerClose }: SideBarProp) {
                 {open && <CreateFolderDialog />}
                 {!open && <CreateNewFolderIcon />}
             </Box>
-            {Array.from({ length: 5 }).map((_, i) => {
-                return <SideBarButton text={"Folder" + i} open={open} key={i} >
+            {folders.map(r => {
+                return <SideBarButton key={r.id} text={r.name} open={open} >
                     <FolderIcon />
                 </SideBarButton>
             })}

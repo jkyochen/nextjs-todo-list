@@ -7,8 +7,14 @@ import Header from './Header';
 import SideBar from './SideBar';
 import SpaceHeader from './SpaceHeader';
 import { SnackbarProvider } from '../toast/SnackBar';
+import { Folder } from '@/validators/folder';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProp {
+  folders: Folder[]
+  children: React.ReactNode
+}
+
+export default function Layout({ folders, children }: LayoutProp) {
   const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
@@ -23,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
-      <SideBar open={open} handleDrawerClose={handleDrawerClose} />
+      <SideBar open={open} folders={folders} handleDrawerClose={handleDrawerClose} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <SpaceHeader />
         <SnackbarProvider>
