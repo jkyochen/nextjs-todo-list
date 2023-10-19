@@ -1,4 +1,7 @@
 .h1 {
+    height: 100vh;
+    font-size: 10rem;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
