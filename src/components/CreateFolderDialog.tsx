@@ -41,8 +41,8 @@ export default function CreateFolderDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Create</Button>
+          <Button variant="contained" onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" onClick={handleClose}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
