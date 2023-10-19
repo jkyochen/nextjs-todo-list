@@ -55,7 +55,7 @@ export default function CreateFolderDialog(props: CreateFolderDialogProp) {
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Box onClick={props.handleAdd}>
             <ProgressButton loading={props.loading} toggleLoading={props.toggleLoading}>
               Create
