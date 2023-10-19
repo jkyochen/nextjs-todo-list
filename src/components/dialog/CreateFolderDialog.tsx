@@ -6,16 +6,28 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import ProgressButton from '../button/ProgressButton';
+import { Box } from '@mui/material';
 
-export default function CreateFolderDialog() {
-  const [open, setOpen] = React.useState(false);
+interface CreateFolderDialogProp {
+  openDialog: boolean
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
+  inputValue: string
+  setInputValue: React.Dispatch<React.SetStateAction<string>>
+  loading: boolean
+  toggleLoading: () => void
+  handleAdd: () => Promise<void>
+}
+
+export default function CreateFolderDialog(props: CreateFolderDialogProp) {
 
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpenDialog(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setInputValue("");
+    props.setOpenDialog(false);
   };
 
   return (
@@ -23,7 +35,7 @@ export default function CreateFolderDialog() {
       <Button variant="contained" onClick={handleClickOpen}>
         Create Folder
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={props.openDialog} onClose={handleClose}>
         <DialogTitle>Create Folder</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -38,11 +50,17 @@ export default function CreateFolderDialog() {
             fullWidth
             autoComplete="off"
             variant="standard"
+            value={props.inputValue}
+            onChange={e => props.setInputValue(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" onClick={handleClose}>Create</Button>
+          <Box onClick={props.handleAdd}>
+            <ProgressButton loading={props.loading} toggleLoading={props.toggleLoading}>
+              Create
+            </ProgressButton>
+          </Box>
         </DialogActions>
       </Dialog>
     </div>

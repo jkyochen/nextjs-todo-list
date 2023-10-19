@@ -29,13 +29,13 @@ export default function Layout({ folders, children }: LayoutProp) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
-      <SideBar open={open} folders={folders} handleDrawerClose={handleDrawerClose} />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <SpaceHeader />
-        <SnackbarProvider>
+      <SnackbarProvider>
+        <SideBar open={open} folders={folders} handleDrawerClose={handleDrawerClose} />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <SpaceHeader />
           {children}
-        </SnackbarProvider>
-      </Box>
+        </Box>
+      </SnackbarProvider>
     </Box>
   );
 }
