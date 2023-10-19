@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from 'react';
-import List from '@mui/material/List';
 import { Box, Divider, Grid, TextField } from '@mui/material';
 import TodoItem from './TodoItem';
 import { Todo } from '@/validators/todo';
@@ -100,7 +99,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
   }
 
   return (
-    <List sx={{
+    <Box sx={{
       width: '100%',
       maxWidth: 460,
       bgcolor: 'background.paper',
@@ -139,6 +138,6 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
           handleEdit={handleEdit}
         />
       ))}
-    </List>
+    </Box>
   );
 }
