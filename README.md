@@ -8,7 +8,9 @@
 + [Zod](https://zod.dev/) for validation
 + MongoDB ([Mongoose](https://mongoosejs.com/))
 
-## Quick Start(Dev)
+## Quick Start
+
+### Dev
 
 ```sh
 # Set local env variable
@@ -17,6 +19,18 @@ cp .env.example .env.local
 # Run MongoDB, MongoDB's admin board http://127.0.0.1:8081/ user/password(demo/demo)
 docker-compose up -d
 
-# Run Serve
+# Run Server
 npm run dev
+```
+
+### Prod
+
+```sh
+# Set env
+
+# Build
+npm run build
+
+# Run Server
+npm run start
 ```
