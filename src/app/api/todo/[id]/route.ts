@@ -22,8 +22,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         });
     }
     const id = await updateTodo(todo);
-    revalidatePath("/");
-    revalidatePath(`/folder/${todo.folderId}`);
+    revalidatePath("/", "page");
+    revalidatePath("/folder/[id]", "page");
     return Response.json({
         code: 0,
         data: id,
@@ -41,8 +41,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
         });
     }
     const id = await deleteTodo(params.id);
-    revalidatePath("/");
-    revalidatePath(`/folder/${todo.folderId}`);
+    revalidatePath("/", "page");
+    revalidatePath("/folder/[id]", "page");
     return Response.json({
         code: 0,
         data: id,

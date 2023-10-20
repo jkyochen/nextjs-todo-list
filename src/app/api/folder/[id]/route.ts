@@ -22,7 +22,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         });
     }
     const id = await updateFolder(folder);
-    revalidatePath("/");
+    revalidatePath("/", "page");
     return Response.json({
         code: 0,
         data: id,
@@ -31,7 +31,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     const id = await deleteFolder(params.id);
-    revalidatePath("/");
+    revalidatePath("/", "page");
     return Response.json({
         code: 0,
         data: id,

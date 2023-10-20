@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     });
   }
   const result = await createFolder(folder.name);
-  revalidatePath("/");
+  revalidatePath("/", "page");
   return Response.json({
     code: 0,
     data: result,

@@ -26,8 +26,8 @@ export async function POST(req: Request) {
     });
   }
   const result = await createTodo(todo);
-  revalidatePath("/");
-  revalidatePath(`/folder/${todo.folderId}`);
+  revalidatePath("/", "page");
+  revalidatePath("/folder/[id]", "page");
   return Response.json({
     code: 0,
     data: result,
