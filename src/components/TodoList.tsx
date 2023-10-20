@@ -4,8 +4,8 @@ import * as React from 'react';
 import { Box, Divider, Grid, TextField } from '@mui/material';
 import TodoItem from './TodoItem';
 import { Todo } from '@/validators/todo';
-import { useSnackbar } from './toast/SnackBar';
-import ProgressButton from './button/ProgressButton';
+import { useSnackbar } from './Toast/SnackBar';
+import ProgressButton from './Button/ProgressButton';
 import { useLoadingState } from '@/hooks/useLoadingState';
 
 interface TodoListProp {

@@ -1,5 +1,5 @@
 import TodoList from '@/components/TodoList';
-import Layout from '@/components/layout/Layout'
+import Layout from '@/components/Layout/Layout'
 import { queryTodo } from '@/models/todo';
 import { queryFolder } from '@/models/folder';
 import { DEFAULT_FOLDER } from '@/constants';

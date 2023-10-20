@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from './Header';
 import SideBar from './SideBar';
 import SpaceHeader from './SpaceHeader';
-import { SnackbarProvider } from '../toast/SnackBar';
+import { SnackbarProvider } from '../Toast/SnackBar';
 import { Folder } from '@/validators/folder';
 import Body from './Body';
 

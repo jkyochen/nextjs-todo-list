@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import ProgressButton from '../button/ProgressButton';
+import ProgressButton from '../Button/ProgressButton';
 import { Box } from '@mui/material';
 
 interface CreateFolderDialogProp {

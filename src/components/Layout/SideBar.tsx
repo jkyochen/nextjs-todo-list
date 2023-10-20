@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import TodayIcon from '@mui/icons-material/Today';
-import SideBarButton from '../button/SideBarButton';
+import SideBarButton from '../Button/SideBarButton';
 import SpaceHeader from './SpaceHeader';
 import { DRAWER_WIDTH } from '@/constants';
 import { Folder } from '@/validators/folder';

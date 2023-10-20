@@ -1,11 +1,11 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import SideBarButton from './button/SideBarButton';
+import SideBarButton from './Button/SideBarButton';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Box } from '@mui/material';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import CreateFolderDialog from './dialog/CreateFolderDialog';
-import { useSnackbar } from './toast/SnackBar';
+import CreateFolderDialog from './Dialog/CreateFolderDialog';
+import { useSnackbar } from './Toast/SnackBar';
 import { useLoadingState } from '@/hooks/useLoadingState';
 import { Folder } from '@/validators/folder';
 
